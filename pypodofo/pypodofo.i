@@ -29,6 +29,10 @@ public:
     const PdfField GetField(int) const;
 };
 
+// Map PdfString as python string
+%typemap(out) PdfString {
+    $result = PyString_FromString($1.GetString());
+}
 
 class PdfField {
 public:

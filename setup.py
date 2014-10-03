@@ -10,6 +10,9 @@ setup(
     license='LGPL',
     ext_modules=[Extension('_pypodofo', ['pypodofo/pypodofo.i'],
                            swig_opts=['-c++', '-I/usr/include/podofo'],
-                           include_dirs=['/usr/include/podofo'])],
-    py_modules=['pypodofo']
+                           include_dirs=['/usr/include/podofo'],
+                           libraries=['podofo'],
+                           library_dirs=['/usr/lib'])],
+    py_modules=['pypodofo'],
+    tests_require=['nose']
 )

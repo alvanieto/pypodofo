@@ -1,1 +1,5 @@
 build/
+*.pyc
+pypodofo.egg-info/
+*.cpp
+*.so
