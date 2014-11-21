@@ -69,21 +69,37 @@ except AttributeError:
     _newclass = 0
 
 
+class PdfError(Exception):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PdfError, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PdfError, name)
+    __repr__ = _swig_repr
+    def what(self): return _pypodofo.PdfError_what(self)
+    def __init__(self): 
+        this = _pypodofo.new_PdfError()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pypodofo.delete_PdfError
+    __del__ = lambda self : None;
+PdfError_swigregister = _pypodofo.PdfError_swigregister
+PdfError_swigregister(PdfError)
+
 class PdfMemDocument(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, PdfMemDocument, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, PdfMemDocument, name)
     __repr__ = _swig_repr
-    def GetPageCount(self): return _pypodofo.PdfMemDocument_GetPageCount(self)
     def __init__(self, *args): 
         this = _pypodofo.new_PdfMemDocument(*args)
         try: self.this.append(this)
         except: self.this = this
-    def GetPage(self, *args): return _pypodofo.PdfMemDocument_GetPage(self, *args)
-    def Write(self, *args): return _pypodofo.PdfMemDocument_Write(self, *args)
     __swig_destroy__ = _pypodofo.delete_PdfMemDocument
     __del__ = lambda self : None;
+    def GetPageCount(self): return _pypodofo.PdfMemDocument_GetPageCount(self)
+    def GetPage(self, *args): return _pypodofo.PdfMemDocument_GetPage(self, *args)
+    def Write(self, *args): return _pypodofo.PdfMemDocument_Write(self, *args)
 PdfMemDocument_swigregister = _pypodofo.PdfMemDocument_swigregister
 PdfMemDocument_swigregister(PdfMemDocument)
 
@@ -120,10 +136,12 @@ class PdfField(_object):
 PdfField_swigregister = _pypodofo.PdfField_swigregister
 PdfField_swigregister(PdfField)
 
-class PdfTextField(_object):
+class PdfTextField(PdfField):
     __swig_setmethods__ = {}
+    for _s in [PdfField]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, PdfTextField, name, value)
     __swig_getmethods__ = {}
+    for _s in [PdfField]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
     __getattr__ = lambda self, name: _swig_getattr(self, PdfTextField, name)
     __repr__ = _swig_repr
     def __init__(self, *args): 
@@ -131,10 +149,34 @@ class PdfTextField(_object):
         try: self.this.append(this)
         except: self.this = this
     def SetText(self, *args): return _pypodofo.PdfTextField_SetText(self, *args)
+    def GetText(self): return _pypodofo.PdfTextField_GetText(self)
     __swig_destroy__ = _pypodofo.delete_PdfTextField
     __del__ = lambda self : None;
 PdfTextField_swigregister = _pypodofo.PdfTextField_swigregister
 PdfTextField_swigregister(PdfTextField)
+
+class PdfListField(PdfField):
+    __swig_setmethods__ = {}
+    for _s in [PdfField]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PdfListField, name, value)
+    __swig_getmethods__ = {}
+    for _s in [PdfField]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, PdfListField, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _pypodofo.new_PdfListField(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def InsertItem(self, *args): return _pypodofo.PdfListField_InsertItem(self, *args)
+    def GetItem(self, *args): return _pypodofo.PdfListField_GetItem(self, *args)
+    def RemoveItem(self, *args): return _pypodofo.PdfListField_RemoveItem(self, *args)
+    def GetItemCount(self): return _pypodofo.PdfListField_GetItemCount(self)
+    def SetSelectedItem(self, *args): return _pypodofo.PdfListField_SetSelectedItem(self, *args)
+    def GetSelectedItem(self): return _pypodofo.PdfListField_GetSelectedItem(self)
+    __swig_destroy__ = _pypodofo.delete_PdfListField
+    __del__ = lambda self : None;
+PdfListField_swigregister = _pypodofo.PdfListField_swigregister
+PdfListField_swigregister(PdfListField)
 
 class PdfString(_object):
     __swig_setmethods__ = {}

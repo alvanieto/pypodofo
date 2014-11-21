@@ -1,5 +1,9 @@
 build/
+dist/
+foo*
+main.py
 *.pyc
 pypodofo.egg-info/
 *.cpp
 *.so
+podofo-0.9.3/
