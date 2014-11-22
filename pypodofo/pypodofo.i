@@ -15,6 +15,20 @@ using namespace PoDoFo;
 #include <doc/PdfPage.h>
 #include <doc/PdfField.h>
 
+
+enum EPdfField {
+    ePdfField_PushButton,
+    ePdfField_CheckBox,
+    ePdfField_RadioButton,
+    ePdfField_TextField,
+    ePdfField_ComboBox,
+    ePdfField_ListBox,
+    ePdfField_Signature,
+
+    ePdfField_Unknown = 0xff
+};
+
+
 class PdfError {
 public:
     const char *what() const;
@@ -37,6 +51,7 @@ public:
     PdfPage( PdfObject* pObject, const std::deque<PdfObject*> & listOfParents );
     int GetNumFields() const;
     const PdfField GetField(int) const;
+    unsigned int GetPageNumber() const;
 };
 
 // Map PdfString as python string
@@ -58,6 +73,10 @@ class PdfField {
 public:
     PdfField(const PdfField &);
     PdfString GetFieldName() const;
+    PdfPage *GetPage() const;
+    void SetFieldName(const PdfString&);
+    PdfString GetFieldName() const;
+    EPdfField GetType() const;
 };
 
 

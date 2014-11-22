@@ -40,13 +40,36 @@ class Field(Document):
         cls.fields = [page.GetField(index) for index in range(page.GetNumFields())]
 
 
+class TestField(Field):
+
+    @classmethod
+    def setup_class(cls):
+        super(TestField, cls).setup_class()
+        cls.field = pypodofo.PdfField(cls.fields[0])
+
+    def test_get_page(self):
+        eq_(self.field.GetPage().GetPageNumber(), 1)
+
+    def test_get_set_field_name(self):
+        self.field.SetFieldName('field_name')
+
+        eq_(self.field.GetFieldName(), 'field_name')
+
+    def test_get_type(self):
+        eq_(self.field.GetType(), pypodofo.ePdfField_TextField)
+
+
 class TestTextField(Field):
 
-    def test_get_set_text_field(self):
-        field = pypodofo.PdfTextField(self.fields[0])
-        field.SetText('text_field')
+    @classmethod
+    def setup_class(cls):
+        super(TestTextField, cls).setup_class()
+        cls.field = pypodofo.PdfTextField(cls.fields[0])
 
-        eq_(field.GetText(), u'text_field')
+    def test_get_set_text_field(self):
+        self.field.SetText('text_field')
+
+        eq_(self.field.GetText(), u'text_field')
 
 
 class TestListField(Field):
