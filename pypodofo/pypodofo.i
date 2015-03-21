@@ -105,13 +105,38 @@ public:
 };
 
 
-class PdfCheckBox : public PdfField {
+class PdfComboBox : public PdfListField {
+public:
+    PdfComboBox(const PdfField &);
+    void SetEditable(bool bEdit);
+    bool IsEditable() const;
+};
+
+
+class PdfButton : public PdfField {
+public:
+    PdfButton(const PdfField &);
+    bool IsPushButton() const;
+    bool IsCheckBox() const;
+    bool IsRadioButton() const;
+    void SetCaption(const PdfString &rsText);
+    const PdfString GetCaption() const;
+};
+
+class PdfPushButton : public PdfButton {
+public:
+    PdfPushButton(const PdfField &);
+};
+
+
+class PdfCheckBox : public PdfButton {
 public:
     PdfCheckBox(const PdfField &);
     void SetChecked(bool bChecked);
     bool IsChecked() const;
 
 };
+
 
 class PdfString {
 public:

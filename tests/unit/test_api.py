@@ -81,15 +81,7 @@ class TestTextField(Field):
         eq_(self.field.GetMaxLen(), -1)
 
 
-class TestListField(Field):
-
-    @classmethod
-    def setup_class(cls):
-        super(TestListField, cls).setup_class()
-        cls.field = pypodofo.PdfListField(cls.fields[2])
-
-    def test_get_item_count(self):
-        eq_(self.field.GetItemCount(), 4)
+class ListField(Field):
 
     def test_set_get_selected_item(self):
         self.field.SetSelectedItem(1)
@@ -102,6 +94,30 @@ class TestListField(Field):
         index = self.field.GetItemCount() - 1
         eq_(self.field.GetItem(index), 'list_item')
         self.field.RemoveItem(index)
+
+
+class TestListField(ListField):
+
+    @classmethod
+    def setup_class(cls):
+        super(ListField, cls).setup_class()
+        page = cls.document.GetPage(1)
+        cls.field = pypodofo.PdfListField(page.GetField(3))
+
+    def test_get_item_count(self):
+        eq_(self.field.GetItemCount(), 3)
+
+
+class TestComboBox(ListField):
+
+    @classmethod
+    def setup_class(cls):
+        super(ListField, cls).setup_class()
+        cls.field = pypodofo.PdfComboBox(cls.fields[2])
+
+    def test_set_editable(self):
+        self.field.SetEditable(True)
+        assert_true(self.field.IsEditable())
 
 
 class TestCheckBoxField(Field):
@@ -117,3 +133,18 @@ class TestCheckBoxField(Field):
 
     def test_not_checked(self):
         assert_false(self.field.IsChecked())
+
+
+class TestPushButton(Field):
+
+    @classmethod
+    def setup_class(cls):
+        super(TestPushButton, cls).setup_class()
+        cls.field = pypodofo.PdfButton(cls.fields[6])
+
+    def test_is_push_button(self):
+        assert_true(self.field.IsPushButton())
+
+    def test_set_get_caption(self):
+        self.field.SetCaption('push_button')
+        eq_(self.field.GetCaption(), u'push_button')
