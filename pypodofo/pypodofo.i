@@ -1,5 +1,6 @@
 %module pypodofo
 %{
+#include <base/PdfDefines.h>
 #include <base/PdfString.h>
 #include <base/PdfError.h>
 #include <doc/PdfMemDocument.h>
@@ -9,12 +10,15 @@
 using namespace PoDoFo;
 %}
 
+#include <base/PdfDefines.h>
 #include <base/PdfString.h>
 #include <base/PdfError.h>
 #include <doc/PdfMemDocument.h>
 #include <doc/PdfPage.h>
 #include <doc/PdfField.h>
 
+
+typedef ptrdiff_t pdf_long;
 
 enum EPdfField {
     ePdfField_PushButton,
@@ -75,7 +79,6 @@ public:
     PdfString GetFieldName() const;
     PdfPage *GetPage() const;
     void SetFieldName(const PdfString&);
-    PdfString GetFieldName() const;
     EPdfField GetType() const;
 };
 
@@ -85,6 +88,8 @@ public:
     PdfTextField(const PdfField &);
     void SetText(const PdfString &) throw (PdfError);
     PdfString GetText() const;
+    void SetMaxLen( pdf_long nMaxLen );
+    pdf_long GetMaxLen() const;
 };
 
 
@@ -99,6 +104,14 @@ public:
     int GetSelectedItem() const;
 };
 
+
+class PdfCheckBox : public PdfField {
+public:
+    PdfCheckBox(const PdfField &);
+    void SetChecked(bool bChecked);
+    bool IsChecked() const;
+
+};
 
 class PdfString {
 public:

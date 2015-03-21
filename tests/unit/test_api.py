@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from nose.tools import eq_, assert_true
+from nose.tools import eq_, assert_true, assert_false
 
 from pypodofo import pypodofo
 
@@ -71,6 +71,15 @@ class TestTextField(Field):
 
         eq_(self.field.GetText(), u'text_field')
 
+    def test_set_max_len(self):
+        self.field.SetMaxLen(9)
+        self.field.SetText('0123456789')
+
+        eq_(self.field.GetText(), u'012345678')
+
+    def test_get_max_len(self):
+        eq_(self.field.GetMaxLen(), -1)
+
 
 class TestListField(Field):
 
@@ -93,3 +102,18 @@ class TestListField(Field):
         index = self.field.GetItemCount() - 1
         eq_(self.field.GetItem(index), 'list_item')
         self.field.RemoveItem(index)
+
+
+class TestCheckBoxField(Field):
+
+    @classmethod
+    def setup_class(cls):
+        super(TestCheckBoxField, cls).setup_class()
+        cls.field = pypodofo.PdfCheckBox(cls.fields[3])
+
+    def test_set_checked(self):
+        self.field.SetChecked(True)
+        assert_true(self.field.IsChecked())
+
+    def test_not_checked(self):
+        assert_false(self.field.IsChecked())
