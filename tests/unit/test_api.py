@@ -3,20 +3,20 @@
 import os
 from nose.tools import eq_, assert_true, assert_false
 
-from pypodofo import pypodofo
+from pypodofo import api
 
 
-class Document(object):
+class Pdf(object):
 
     @classmethod
     def setup_class(cls):
         path = os.path.dirname(__file__)
         # De momento tengo que mantener la referencia porque sino el objecto C++ PdfMemDocument se
         # borra automáticamente
-        cls.document = pypodofo.PdfMemDocument(os.path.join(path, 'form.pdf'))
+        cls.document = api.PdfMemDocument(os.path.join(path, 'form.pdf'))
 
 
-class TestForm(Document):
+class TestForm(Pdf):
 
     def test_page_count(self):
         eq_(self.document.GetPageCount(), 2)
@@ -31,7 +31,7 @@ class TestForm(Document):
         eq_(self.document.GetPage(0).GetField(0).GetFieldName(), 'field_name')
 
 
-class Field(Document):
+class Field(Pdf):
 
     @classmethod
     def setup_class(cls):
@@ -45,7 +45,7 @@ class TestField(Field):
     @classmethod
     def setup_class(cls):
         super(TestField, cls).setup_class()
-        cls.field = pypodofo.PdfField(cls.fields[0])
+        cls.field = api.PdfField(cls.fields[0])
 
     def test_get_page(self):
         eq_(self.field.GetPage().GetPageNumber(), 1)
@@ -56,7 +56,7 @@ class TestField(Field):
         eq_(self.field.GetFieldName(), 'field_name')
 
     def test_get_type(self):
-        eq_(self.field.GetType(), pypodofo.ePdfField_TextField)
+        eq_(self.field.GetType(), api.ePdfField_TextField)
 
 
 class TestTextField(Field):
@@ -64,7 +64,7 @@ class TestTextField(Field):
     @classmethod
     def setup_class(cls):
         super(TestTextField, cls).setup_class()
-        cls.field = pypodofo.PdfTextField(cls.fields[0])
+        cls.field = api.PdfTextField(cls.fields[0])
 
     def test_get_set_text_field(self):
         self.field.SetText('text_field')
@@ -102,7 +102,7 @@ class TestListField(ListField):
     def setup_class(cls):
         super(ListField, cls).setup_class()
         page = cls.document.GetPage(1)
-        cls.field = pypodofo.PdfListField(page.GetField(3))
+        cls.field = api.PdfListField(page.GetField(3))
 
     def test_get_item_count(self):
         eq_(self.field.GetItemCount(), 3)
@@ -113,7 +113,7 @@ class TestComboBox(ListField):
     @classmethod
     def setup_class(cls):
         super(ListField, cls).setup_class()
-        cls.field = pypodofo.PdfComboBox(cls.fields[2])
+        cls.field = api.PdfComboBox(cls.fields[2])
 
     def test_set_editable(self):
         self.field.SetEditable(True)
@@ -125,7 +125,7 @@ class TestCheckBoxField(Field):
     @classmethod
     def setup_class(cls):
         super(TestCheckBoxField, cls).setup_class()
-        cls.field = pypodofo.PdfCheckBox(cls.fields[3])
+        cls.field = api.PdfCheckBox(cls.fields[3])
 
     def test_set_checked(self):
         self.field.SetChecked(True)
@@ -140,7 +140,7 @@ class TestPushButton(Field):
     @classmethod
     def setup_class(cls):
         super(TestPushButton, cls).setup_class()
-        cls.field = pypodofo.PdfButton(cls.fields[6])
+        cls.field = api.PdfButton(cls.fields[6])
 
     def test_is_push_button(self):
         assert_true(self.field.IsPushButton())

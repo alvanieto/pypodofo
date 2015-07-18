@@ -8,7 +8,7 @@ setup(
     author='Álvaro Nieto',
     author_email='alvaro.nieto@gmail.com',
     license='LGPL',
-    ext_modules=[Extension('_pypodofo', ['pypodofo/pypodofo.i'],
+    ext_modules=[Extension('_api', ['pypodofo/api.i'],
                            swig_opts=['-c++', '-I/usr/include/podofo'],
                            include_dirs=['/usr/include/podofo'],
                            libraries=['podofo'],

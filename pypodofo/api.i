@@ -1,4 +1,4 @@
-%module pypodofo
+%module api
 %{
 #include <base/PdfDefines.h>
 #include <base/PdfString.h>
