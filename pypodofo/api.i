@@ -146,7 +146,7 @@ public:
 
 class PdfField {
 public:
-    PdfField(const PdfField &);
+    PdfField(const PdfField &) throw(PdfError);
     PdfString GetFieldName() const;
     PdfPage *GetPage() const;
     void SetFieldName(const PdfString&);
@@ -156,7 +156,7 @@ public:
 
 class PdfTextField : public PdfField {
 public:
-    PdfTextField(const PdfField &);
+    PdfTextField(const PdfField &) throw(PdfError);
     void SetText(const PdfString &) throw (PdfError);
     PdfString GetText() const;
     void SetMaxLen( pdf_long nMaxLen );
@@ -166,7 +166,7 @@ public:
 
 class PdfListField : public PdfField {
 public:
-    PdfListField(const PdfField &);
+    PdfListField(const PdfField &) throw(PdfError);
     void InsertItem(const PdfString &rsValue, const PdfString &rsDisplayName=PdfString::StringNull);
     const PdfString GetItem(int) const;
     void RemoveItem(int);
@@ -178,7 +178,7 @@ public:
 
 class PdfComboBox : public PdfListField {
 public:
-    PdfComboBox(const PdfField &);
+    PdfComboBox(const PdfField &) throw(PdfError);
     void SetEditable(bool bEdit);
     bool IsEditable() const;
 };
@@ -186,7 +186,7 @@ public:
 
 class PdfButton : public PdfField {
 public:
-    PdfButton(const PdfField &);
+    PdfButton(const PdfField &) throw(PdfError);
     bool IsPushButton() const;
     bool IsCheckBox() const;
     bool IsRadioButton() const;
@@ -196,13 +196,13 @@ public:
 
 class PdfPushButton : public PdfButton {
 public:
-    PdfPushButton(const PdfField &);
+    PdfPushButton(const PdfField &) throw(PdfError);
 };
 
 
 class PdfCheckBox : public PdfButton {
 public:
-    PdfCheckBox(const PdfField &);
+    PdfCheckBox(const PdfField &) throw(PdfError);
     void SetChecked(bool bChecked);
     bool IsChecked() const;
 

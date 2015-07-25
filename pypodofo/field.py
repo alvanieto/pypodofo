@@ -12,11 +12,11 @@ class FieldError(Exception):
 class Field(object):
 
     def __init__(self, field):
-        self.__field = field
+        self._field = field
 
     @property
     def name(self):
-        return self.__field.GetFieldName()
+        return self._field.GetFieldName()
 
     @property
     def value(self):
@@ -30,48 +30,56 @@ class Field(object):
 @error.ApiError
 class Text(Field):
 
+    def __init__(self, field):
+        self._field = api.PdfTextField(field)
+
     @property
     def value(self):
-        return self.__field.GetText()
+        return self._field.GetText()
 
     @value.setter
-    def value_setter(self, value):
-        self.__field.SetText(value)
+    def value(self, value):
+        self._field.SetText(value)
 
 
 class List(Field):
 
     @property
     def value(self):
-        return self.__field.GetSelectedItem()
+        return self._field.GetSelectedItem()
 
     @value.setter
-    def value_setter(self, value):
-        self.__field.SetSelectedItem(value)
+    def value(self, value):
+        self._field.SetSelectedItem(value)
 
 
 @error.ApiError
 class Combo(List):
 
-    pass
+    def __init__(self, field):
+        self._field = api.PdfComboBox(field)
 
 
 @error.ApiError
 class Check(Field):
 
+    def __init__(self, field):
+        self._field = api.PdfCheckBox(field)
+
     @property
     def value(self):
-        return self.__field.IsChecked()
+        return self._field.IsChecked()
 
     @value.setter
-    def value_setter(self, value):
-        self.__field.SetChecked(value)
+    def value(self, value):
+        self._field.SetChecked(value)
 
 
 @error.ApiError
 class PushButton(Field):
 
-    pass
+    def __init__(self, field):
+        self._field = field  # api.PdfPushButton(field)
 
 
 __TYPES = {

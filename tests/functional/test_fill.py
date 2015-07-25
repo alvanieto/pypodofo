@@ -2,7 +2,7 @@
 
 import os
 
-from nose.tools import eq_
+from nose.tools import eq_, assert_true
 
 from pypodofo.document import Document
 
@@ -15,21 +15,26 @@ class TestFill(object):
         cls.document = Document(os.path.join(os.path.dirname(__file__), 'form.pdf'))
 
     def test_dump_fields(self):
-        eq_(self.document.dump_fields(),
-            [{'field_check_com': '',
-              'field_check_oss': '',
-              'field_clear': '',
-              'field_combo': '',
-              'field_comment': '',
-              'field_mail': '',
-              'field_name': '',
-              'field_send': ''},
-             {'ButtonFieldName': '',
-              'ComboFieldName': '',
-              'ListBoxFieldName': '',
-              'TextFieldName': ''}])
+        result = {
+            'field_check_com': '',
+            'field_check_oss': '',
+            'field_clear': '',
+            'field_combo': '',
+            'field_comment': '',
+            'field_mail': '',
+            'field_name': '',
+            'field_send': '',
+            'ButtonFieldName': '',
+            'ComboFieldName': '',
+            'ListBoxFieldName': '',
+            'TextFieldName': ''
+        }
+        for page in self.document.dump_fields():
+            for key, value in page.iteritems():
+                assert_true(key in result)
 
     def test_fill_one_page(self):
         self.document.fill({
             'field_name': 'value'
         })
+        eq_(self.document.pages[0].fields.field_name, 'value')
