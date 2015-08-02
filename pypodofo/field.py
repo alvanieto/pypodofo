@@ -27,7 +27,7 @@ class Field(object):
         raise NotImplemented
 
 
-@error.ApiError
+@error.api
 class Text(Field):
 
     def __init__(self, field):
@@ -53,14 +53,14 @@ class List(Field):
         self._field.SetSelectedItem(value)
 
 
-@error.ApiError
+@error.api
 class Combo(List):
 
     def __init__(self, field):
         self._field = api.PdfComboBox(field)
 
 
-@error.ApiError
+@error.api
 class Check(Field):
 
     def __init__(self, field):
@@ -75,7 +75,7 @@ class Check(Field):
         self._field.SetChecked(value)
 
 
-@error.ApiError
+@error.api
 class PushButton(Field):
 
     def __init__(self, field):

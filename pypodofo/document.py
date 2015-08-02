@@ -42,7 +42,7 @@ class Page(object):
             return res
 
 
-@error.ApiError
+@error.api
 class Document(object):
 
     def __init__(self, pdf_name):

@@ -1,18 +1,35 @@
 # -*- coding: utf-8 -*-
 
-import api
+import api as basic_api
 
 
-class ApiError(object):
+def error_parser(function):
 
-    def __init__(self, function):
-        self.__function = function
-
-    def __call__(self, *args, **kwargs):
+    def decorator(*args, **kwargs):
         try:
-            return self.__function(*args, **kwargs)
-        except api.PdfError as error:
+            return function(*args, **kwargs)
+        except basic_api.PdfError as error:
             raise DocumentError(error.ErrorMessage(error.GetError()))
+    return decorator
+
+
+def api(cls):
+
+    class ErrorFree(cls):
+
+        def __init__(self, *args, **kwargs):
+            try:
+                super(ErrorFree, self).__init__(*args, **kwargs)
+            except basic_api.PdfError as error:
+                raise DocumentError(error.ErrorMessage(error.GetError()))
+
+        def __getattribute__(self, attr_name):
+            obj = super(ErrorFree, self).__getattribute__(attr_name)
+            if hasattr(obj, '__call__'):
+                return error_parser(obj)
+            return obj
+
+    return ErrorFree
 
 
 class DocumentError(Exception):
