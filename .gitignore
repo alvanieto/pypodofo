@@ -8,3 +8,5 @@ pypodofo/pypodofo.py
 *.cpp
 *.so
 podofo-0.9.3/
+.coverage
+htmlcov/

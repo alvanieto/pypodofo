@@ -64,9 +64,6 @@ class Document(object):
     def fill(self, values):
         # Only fill the first page
         if isinstance(values, dict):
-            if not self.__document.GetPageCount():
-                raise error.DocumentError('The document hat 0 pages')
-
             for field, value in values.iteritems():
                 setattr(self.pages[0].fields, field, value)
 

@@ -2,9 +2,10 @@
 
 import os
 
-from nose.tools import eq_, assert_true
+from nose.tools import eq_, assert_true, raises
 
 from pypodofo.document import Document
+from pypodofo.error import DocumentError
 
 
 class TestFill(object):
