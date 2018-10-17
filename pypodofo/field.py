@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from . import error, api
 
 
@@ -18,11 +16,11 @@ class Field:
 
     @property
     def value(self):
-        raise NotImplemented
+        raise NotImplementedError
 
     @value.setter
     def value(self, value):
-        raise NotImplemented
+        raise NotImplementedError
 
 
 @error.api

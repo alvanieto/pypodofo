@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from document import Document
-
-
-class Form(object):
+class Form:
 
     def __init__(self, document):
         self._document = document
