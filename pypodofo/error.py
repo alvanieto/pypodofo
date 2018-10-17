@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import api as basic_api
+from . import api as basic_api
 
 
 def error_parser(function):
@@ -33,5 +33,4 @@ def api(cls):
 
 
 class DocumentError(Exception):
-
     pass

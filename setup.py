@@ -14,5 +14,5 @@ setup(
                            libraries=['podofo'],
                            library_dirs=['/usr/lib'])],
     py_modules=['pypodofo'],
-    tests_require=['nose']
+    tests_require=['nose', 'coverage']
 )

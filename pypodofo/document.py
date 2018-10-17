@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
-
-import api
-import field
-import error
+from . import api, field, error
 
 
-class Page(object):
+class Page:
 
     def __init__(self, page):
         self.__page = page
@@ -15,7 +11,7 @@ class Page(object):
     def fields(self):
         return self.__fields
 
-    class _Fields(object):
+    class _Fields:
 
         def __init__(self, page):
             self.__page = page
@@ -43,7 +39,7 @@ class Page(object):
 
 
 @error.api
-class Document(object):
+class Document:
 
     def __init__(self, pdf_name):
         self.__document = api.PdfMemDocument(pdf_name)
@@ -64,7 +60,7 @@ class Document(object):
     def fill(self, values):
         # Only fill the first page
         if isinstance(values, dict):
-            for field, value in values.iteritems():
+            for field, value in values.items():
                 setattr(self.pages[0].fields, field, value)
 
     def dump_fields(self):

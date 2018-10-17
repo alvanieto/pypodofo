@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
-
 import os
 from nose.tools import eq_, assert_true, assert_false
 
 from pypodofo import api
 
 
-class Pdf(object):
+class Pdf:
 
     @classmethod
     def setup_class(cls):
@@ -51,7 +49,7 @@ class TestField(Field):
         eq_(self.field.GetPage().GetPageNumber(), 1)
 
     def test_get_set_field_name(self):
-        self.field.SetFieldName('field_name')
+        self.field.SetFieldName(b'field_name')
 
         eq_(self.field.GetFieldName(), 'field_name')
 
@@ -67,13 +65,13 @@ class TestTextField(Field):
         cls.field = api.PdfTextField(cls.fields[0])
 
     def test_get_set_text_field(self):
-        self.field.SetText('text_field')
+        self.field.SetText(b'text_field')
 
         eq_(self.field.GetText(), u'text_field')
 
     def test_set_max_len(self):
         self.field.SetMaxLen(9)
-        self.field.SetText('0123456789')
+        self.field.SetText(b'0123456789')
 
         eq_(self.field.GetText(), u'012345678')
 
@@ -89,7 +87,7 @@ class ListField(Field):
         eq_(self.field.GetSelectedItem(), 1)
 
     def test_insert_get_and_delete_item(self):
-        self.field.InsertItem('list_item')
+        self.field.InsertItem(b'list_item')
 
         index = self.field.GetItemCount() - 1
         eq_(self.field.GetItem(index), 'list_item')
@@ -146,5 +144,5 @@ class TestPushButton(Field):
         assert_true(self.field.IsPushButton())
 
     def test_set_get_caption(self):
-        self.field.SetCaption('push_button')
-        eq_(self.field.GetCaption(), u'push_button')
+        self.field.SetCaption(b'push_button')
+        eq_(self.field.GetCaption(), 'push_button')

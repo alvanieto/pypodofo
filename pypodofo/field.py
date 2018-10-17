@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import error
-from pypodofo import api
+from . import error, api
 
 
 class FieldError(Exception):
-
     pass
 
 
-class Field(object):
+class Field:
 
     def __init__(self, field):
         self._field = field

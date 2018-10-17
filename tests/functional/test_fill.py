@@ -31,7 +31,7 @@ class TestFill(object):
             'TextFieldName': ''
         }
         for page in self.document.dump_fields():
-            for key, value in page.iteritems():
+            for key, value in page.items():
                 assert_true(key in result)
 
     def test_fill_one_page(self):
